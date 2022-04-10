@@ -7,6 +7,31 @@
     <title>Document</title>
 </head>
 <body>
+    <header></header>
+    <div class="main-container">
+        <nav>
+            <div class="nav-main">Main</div>
+            <div class="nav-today">Today</div>
+            <div class="nav-week">This Week</div>
+            <h1 class="Projects">Projects</h1>
+            <div class="project-container"></div>
+            <button class="add-project">Add Projects</button>
+            <ul class="project-container">
+            </div>
+        </nav>
+        <main ></main>
+    </div>
+    <div class="project-modal modal-closed">
+        <div class="project-modal-content">
+            <h1>Create a new Projects</h1>
+            <form class="project-form">
+                <label for="project-name">Name: </label>
+                <input type="text" id="project-name" name="project-name">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay modal-closed" id="modal-overlay"></div>
     <script src="bundle.js"></script>
 </body>
 </html>
