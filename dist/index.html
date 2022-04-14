@@ -7,7 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <header></header>
+    <header>
+        <button class="add-todo">
+            Add a todo
+        </button>
+    </header>
     <div class="main-container">
         <nav>
             <div class="nav-main">Main</div>
@@ -17,11 +21,19 @@
             <div class="project-container"></div>
             <button class="add-project">Add Projects</button>
             <ul class="project-container">
-            </div>
         </nav>
-        <main ></main>
+        
+        <main>
+            <div class="inner-main-container">
+                <h1 class="project-title">Main</h1>
+                <div class="selected-todos-container">
+                    <div class="todo-item" id="this will mean something">
+                       </div>
+                </div>
+            </div>
+        </main>
     </div>
-    <div class="project-modal modal-closed">
+    <div class="project-modal modal-closed modal">
         <div class="project-modal-content">
             <h1>Create a new Projects</h1>
             <form class="project-form">
@@ -31,7 +43,30 @@
             </form>
         </div>
     </div>
-    <div class="modal-overlay modal-closed" id="modal-overlay"></div>
+    <div class="todo-modal modal-closed modal">
+        <div class="todo-modal-content">
+            <form class="todo-form">
+                <label for="todo-name">Name: </label>
+                <input type="text" id="todo-name" name="todo-name" required>
+                <label for="description">Description: </label>
+                <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+                <label for="todo-date">Due Date: </label>
+                <input type="date" id="todo-date" name="todo-date" required>
+                <label for="priority">priority</label>
+                <select name="priority" id="priority">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Easy">Easy</option>
+                </select>
+                <label for="project">Project</label>
+                <select name="project" id="project">
+                </select>
+                
+                <input type="submit" value="Submit" id="todo-form-submit">
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay modal-closed modal" id="modal-overlay"></div>
     <script src="bundle.js"></script>
 </body>
 </html>

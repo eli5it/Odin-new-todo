@@ -156,13 +156,31 @@ div[class^='nav'] {
 main {
   width: 80%;
   height: 100%;
-  background-color: azure;
+}
+
+.inner-main-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
 }
 .project-container {
   padding-left: 10%;
 }
+.selected-todos-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+.project-title {
+  font-size: 2.8rem;
+}
+.todo-item {
+  font-size: 1.2rem;
+}
 
-.project-modal {
+.project-modal,
+.todo-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -199,4 +217,14 @@ main {
   height: 100%;
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.todo-modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.todo-form {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,50 +1,67 @@
 import domCollection from './domCollection';
-import logic from './logic';
+import factoryService from './factories';
+import todoService from './todo';
+import projectService from './projects';
 // Changes visibility of project modal and overlay
-const toggleModals = () => {
-  const modal = domCollection.projectModal;
+const toggleModals = (modal) => {
   const modalOverlay = domCollection.modalOverlay;
-  modal.classList.toggle('modal-closed');
+
+  if (modal === 'project') {
+    const projectModal = domCollection.projectModal;
+    projectModal.classList.toggle('modal-closed');
+  } else {
+    const todoModal = domCollection.todoModal;
+    todoModal.classList.toggle('modal-closed');
+  }
   modalOverlay.classList.toggle('modal-closed');
 };
 
-const setProjectEventListener = () => {
-  const projectButton = domCollection.projectButton;
-  projectButton.addEventListener('click', () => {
-    toggleModals();
+const toggleModal = (modal) => {
+  modal.classList.toggle('modal-closed');
+};
+const turnOffModals = () => {
+  const allModals = document.querySelectorAll('.modal');
+  allModals.forEach((modal) => {
+    if (!modal.classList.contains('modal-closed')) {
+      toggleModal(modal);
+    }
   });
 };
 
 const setOverlayListener = () => {
   const modalOverlay = domCollection.modalOverlay;
   modalOverlay.addEventListener('click', () => {
-    toggleModals();
-  });
-};
-const createNewProject = (projectName) => {
-  const projectContainer = domCollection.projectContainer;
-  const newProject = document.createElement('li');
-  newProject.innerHTML = projectName;
-  projectContainer.appendChild(newProject);
-  logic.createLocalProject(projectName);
-};
-
-//!!! Add Validation to input
-const setProjectFormListener = () => {
-  const projectForm = domCollection.projectForm;
-  projectForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    createNewProject(domCollection.projectName.value);
-    toggleModals();
+    turnOffModals();
   });
 };
 
 const setListeners = () => {
   setOverlayListener();
-  setProjectEventListener();
-  setProjectFormListener();
+  projectService.setProjectEventListener();
+  projectService.setProjectFormListener();
+  todoService.setTodoEventListener();
+  todoService.submitNewTodo();
+};
+
+const initializeLocalStorage = () => {
+  if (!window.localStorage.getItem('Main')) {
+    window.localStorage.setItem(
+      'Main',
+      JSON.stringify(factoryService.projectFactory())
+    );
+  }
+};
+
+const initializeDomProjects = () => {
+  const projectNames = Object.keys(localStorage);
+  projectNames.forEach((project) => {
+    projectService.setModalProject(project);
+  });
 };
 
 export default {
   setListeners,
+  initializeLocalStorage,
+  initializeDomProjects,
+  toggleModals,
 };
