@@ -250,7 +250,9 @@ main {
 .delete-project {
   display: none;
 }
-
+.visible {
+  display: block;
+}
 .sidebar-project {
   display: flex;
   align-items: center;

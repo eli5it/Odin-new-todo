@@ -72,8 +72,13 @@ const initializeDefaultListeners = () => {
   }
 };
 
-const setHoverListener = () => {
-  console.log('oh please');
+const setHoverListener = (container, deleteButton) => {
+  container.addEventListener('mouseenter', () => {
+    deleteButton.classList.toggle('visible');
+  });
+  container.addEventListener('mouseleave', () => {
+    deleteButton.classList.toggle('visible');
+  });
 };
 
 const renderSingleProject = (projectName) => {
@@ -97,7 +102,7 @@ const renderSingleProject = (projectName) => {
   domElement.innerText = projectName;
   leftContainer.append(circleIcon, domElement);
   rightContainer.appendChild(deleteButton);
-  setHoverListener(container);
+  setHoverListener(container, deleteButton);
   container.append(leftContainer, rightContainer);
   domCollection.projectContainer.appendChild(container);
 };
