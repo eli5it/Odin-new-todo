@@ -4,20 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet">
 </head>
 <body>
     <header>
-        <button class="add-todo">
-            Add a todo
-        </button>
+        <div class="left-header">
+            <span class="material-icons-outlined" style="color: white; font-size: 2.4rem; margin-right: .3rem;">
+                home
+                </span>
+                <span style="font-size: 2rem; color: white;">Todo List</span>
+        </div>
+        <div class="right-header">
+            <i class="material-icons add-todo" style="color: black; font-size: 2.4rem;">
+                add
+            </i>
+        </div>
+            
+      
     </header>
     <div class="main-container">
         <nav>
             <div class="nav-main">Main</div>
             <div class="nav-today">Today</div>
             <div class="nav-week">This Week</div>
-            <h1 class="Projects">Projects</h1>
+            <h1 class="Projects" style="font-weight: bold;">Projects</h1>
             <div class="project-container"></div>
             <button class="add-project">Add Projects</button>
             <ul class="project-container">
@@ -27,7 +41,6 @@
             <div class="inner-main-container">
                 <h1 class="project-title">Main</h1>
                 <div class="selected-todos-container">
-                    <div class="todo-item" id="this will mean something">
                        </div>
                 </div>
             </div>

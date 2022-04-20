@@ -107,6 +107,8 @@ section {
 }
 body {
   line-height: 1;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
 }
 ol,
 ul {
@@ -134,7 +136,19 @@ table {
 header {
   width: 100vw;
   height: 20vh;
-  background-color: aqua;
+  background-color: #3d3d3d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left-header,
+.right-header {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.left-header {
+  display: flex;
+  align-items: center;
 }
 .main-container {
   display: flex;
@@ -145,13 +159,14 @@ nav {
   flex-direction: column;
   width: 20%;
   height: 100%;
-  background-color: lightpink;
+  background-color: #fafafa;
   padding-left: 4%;
   padding-right: 4%;
+  padding: 3rem;
 }
 div[class^='nav'] {
   height: 3rem;
-  color: white;
+  color: #333;
 }
 main {
   width: 80%;
@@ -161,8 +176,10 @@ main {
 .inner-main-container {
   display: flex;
   flex-direction: column;
-  padding: 10%;
+  padding-left: 8rem;
+  padding-top: 3rem;
 }
+
 .project-container {
   padding-left: 10%;
 }
@@ -174,6 +191,7 @@ main {
 }
 .project-title {
   font-size: 2.8rem;
+  color: #202020;
 }
 .todo-item {
   font-size: 1.2rem;
@@ -227,4 +245,23 @@ main {
 .todo-form {
   display: flex;
   flex-direction: column;
+}
+
+.delete-project {
+  display: none;
+}
+
+.sidebar-project {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left-sidebar-container,
+.right-sidebar-container {
+  display: flex;
+  align-items: center;
+}
+.circle-icon {
+  font-size: 1rem;
+  margin-right: 0.2rem;
 }

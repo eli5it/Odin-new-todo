@@ -7,6 +7,7 @@ window.onload = () => {
   domHelpers.initializeLocalStorage();
   domHelpers.setListeners();
   projectService.renderProjects();
-  todoService.renderTodos();
+  todoService.renderMainTodos();
   domHelpers.initializeDomProjects();
+  projectService.initializeDefaultListeners();
 };

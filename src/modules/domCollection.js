@@ -18,6 +18,12 @@ const domCollection = {
   projectList: document.getElementById('project'),
   currentTodos: document.querySelector('.selected-todos-container'),
   currentProject: document.querySelector('.project-title'),
+  projectHeadingContainer: document.querySelector('.inner-main-container'),
+  defaultProjects: {
+    main: document.querySelector('.nav-main'),
+    today: document.querySelector('.nav-today'),
+    week: document.querySelector('.nav-week'),
+  },
 };
 
 export default domCollection;

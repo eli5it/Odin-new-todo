@@ -1,6 +1,7 @@
-import logic from './logic';
 import domHelpers from './domHelpers';
 import domCollection from './domCollection';
+import logic from './logic';
+import todoService from './todo';
 
 const setProjectEventListener = () => {
   const projectButton = domCollection.projectButton;
@@ -20,6 +21,8 @@ const setModalProject = (projectName) => {
 const createNewProject = (projectName) => {
   projectName = projectName[0].toUpperCase() + projectName.slice(1);
   renderSingleProject(projectName);
+  logic.createLocalProject(projectName);
+  setModalProject(projectName);
 };
 
 //!!! Add Validation to input
@@ -31,23 +34,79 @@ const setProjectFormListener = () => {
     domHelpers.toggleModals('project');
   });
 };
+const setDeleteListener = (deleteButton, project, projectName) => {
+  deleteButton.addEventListener('click', () => {
+    project.remove();
+    logic.removeLocalProject(projectName);
+  });
+};
+
+const deleteChildren = (element) => {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+};
+const renderProjectView = (projectName) => {
+  const todoContainer = domCollection.currentTodos;
+  if (projectName !== domCollection.currentProject.innerHTML) {
+    domCollection.currentProject.innerHTML = projectName;
+    deleteChildren(todoContainer);
+  }
+  const todosToRender = JSON.parse(localStorage.getItem(projectName)).todos;
+  todoService.renderTodos(todosToRender, projectName);
+};
+
+const setProjectClickListener = (project, projectName) => {
+  project.addEventListener('click', () => {
+    renderProjectView(projectName);
+  });
+};
+
+const initializeDefaultListeners = () => {
+  const defaultProjects = domCollection.defaultProjects;
+  for (const key in defaultProjects) {
+    setProjectClickListener(
+      defaultProjects[key],
+      `${key[0].toUpperCase()}${key.slice(1)}`
+    );
+  }
+};
+
+const setHoverListener = () => {
+  console.log('oh please');
+};
 
 const renderSingleProject = (projectName) => {
-  console.log('rendering');
+  const circleIcon = document.createElement('i');
+  const container = document.createElement('div');
+  const leftContainer = document.createElement('div');
+  const rightContainer = document.createElement('div');
   const domElement = document.createElement('div');
-  const deleteButton = document.createElement('button');
-  deleteButton.innerText = 'X';
+  const deleteButton = document.createElement('i');
+  container.className = 'sidebar-project';
+  leftContainer.className = 'left-sidebar-container';
+  rightContainer.className = 'right-sidebar-container';
+  circleIcon.classList.add('material-icons');
+  circleIcon.classList.add('circle-icon');
+  circleIcon.innerText = 'fiber_manual_record';
+  deleteButton.classList.add('material-icons');
+  deleteButton.classList.add('delete-project');
+  deleteButton.innerText = 'delete';
+  setDeleteListener(deleteButton, container, projectName);
+  setProjectClickListener(domElement, projectName);
   domElement.innerText = projectName;
-  domElement.appendChild(deleteButton);
-
-  console.log(domElement);
-
-  domCollection.projectContainer.appendChild(domElement);
+  leftContainer.append(circleIcon, domElement);
+  rightContainer.appendChild(deleteButton);
+  setHoverListener(container);
+  container.append(leftContainer, rightContainer);
+  domCollection.projectContainer.appendChild(container);
 };
 
 const renderProjects = () => {
   let projectNames = Object.keys(localStorage);
-  projectNames = projectNames.filter((name) => name !== 'Main');
+  projectNames = projectNames.filter(
+    (name) => name !== 'Main' && name !== 'Today' && name !== 'Week'
+  );
   projectNames.forEach((project) => {
     renderSingleProject(project);
   });
@@ -58,4 +117,5 @@ export default {
   setProjectFormListener,
   renderProjects,
   setModalProject,
+  initializeDefaultListeners,
 };

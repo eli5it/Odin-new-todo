@@ -40,15 +40,18 @@ const renderNewTodo = (todo) => {
   }
 };
 
-const renderTodos = () => {
+const renderTodos = (todoArray, projectName) => {
+  todoArray.forEach((todo) => {
+    addDomTodo(todo.title, projectName);
+  });
+};
+
+const renderMainTodos = () => {
   const mainJson = localStorage.getItem('Main');
   // converts returned JSON into array of todos
   const todoArray = JSON.parse(mainJson).todos;
-
   if (todoArray) {
-    todoArray.forEach((todo) => {
-      addDomTodo(todo.title, 'Main');
-    });
+    renderTodos(todoArray, 'Main');
   }
 };
 
@@ -81,8 +84,9 @@ export default {
   deleteTodo,
   addDomTodo,
   renderNewTodo,
-  renderTodos,
+  renderMainTodos,
   createNewTodo,
   submitNewTodo,
   setTodoEventListener,
+  renderTodos,
 };

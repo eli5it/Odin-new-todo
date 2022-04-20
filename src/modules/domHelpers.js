@@ -43,17 +43,26 @@ const setListeners = () => {
   todoService.submitNewTodo();
 };
 
-const initializeLocalStorage = () => {
-  if (!window.localStorage.getItem('Main')) {
-    window.localStorage.setItem(
-      'Main',
+const setDefaultProject = (project) => {
+  if (!localStorage.getItem(project)) {
+    localStorage.setItem(
+      project,
       JSON.stringify(factoryService.projectFactory())
     );
   }
 };
 
+const initializeLocalStorage = () => {
+  setDefaultProject('Main');
+  setDefaultProject('Today');
+  setDefaultProject('Week');
+};
+
 const initializeDomProjects = () => {
-  const projectNames = Object.keys(localStorage);
+  let projectNames = Object.keys(localStorage);
+  projectNames = projectNames.filter(
+    (name) => name !== 'Today' && name !== 'Week'
+  );
   projectNames.forEach((project) => {
     projectService.setModalProject(project);
   });
