@@ -14,8 +14,16 @@ const setModalProject = (projectName) => {
   const projectList = domCollection.projectList;
   const newOption = document.createElement('option');
   newOption.value = projectName;
+  newOption.id = `modal-project-${projectName}`;
   newOption.innerHTML = projectName;
   projectList.appendChild(newOption);
+};
+
+const removeModalProject = (projectName) => {
+  const projectToRemove = document.getElementById(
+    `modal-project-${projectName}`
+  );
+  projectToRemove.remove();
 };
 
 const createNewProject = (projectName) => {
@@ -38,6 +46,7 @@ const setDeleteListener = (deleteButton, project, projectName) => {
   deleteButton.addEventListener('click', () => {
     project.remove();
     logic.removeLocalProject(projectName);
+    removeModalProject(projectName);
   });
 };
 

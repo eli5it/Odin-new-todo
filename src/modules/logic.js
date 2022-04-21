@@ -45,7 +45,6 @@ const setTodoEventListener = () => {
 };
 
 const removeLocalProject = (projectKey) => {
-  console.log(projectKey);
   localStorage.removeItem(projectKey);
 };
 

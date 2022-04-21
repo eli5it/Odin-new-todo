@@ -133,6 +133,9 @@ table {
 /* Beginning of styling
 */
 
+:root {
+  --secondary-color: #ddd;
+}
 header {
   width: 100vw;
   height: 20vh;
@@ -203,8 +206,6 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 300px;
   max-height: 100%;
   max-width: 100%;
   background-color: white;
@@ -212,6 +213,21 @@ main {
   z-index: 1010;
   display: flex;
 }
+.todo-modal {
+  width: 30%;
+  height: 57%;
+}
+.project-modal {
+  width: 30%;
+  height: 10%;
+  padding: 5em;
+}
+
+.project-modal input {
+  width: 24%;
+  border-radius: 0.1em;
+}
+
 .modal-closed {
   display: none;
 }
@@ -222,9 +238,15 @@ main {
   width: 100%;
   height: 100%;
 
-  padding: 20px 50px 20px 20px;
-
   overflow: auto;
+}
+
+.project-modal-guts {
+  display: flex;
+  flex-direction: column;
+  height: 83%;
+  margin: 1em 1em 1em 1em;
+  justify-content: space-between;
 }
 .modal-overlay {
   z-index: 1000;
@@ -237,14 +259,26 @@ main {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 .todo-modal-content {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-form-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
+  height: 90%;
 }
 .todo-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 1%;
+  height: 100%;
 }
 
 .delete-project {
@@ -257,13 +291,79 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 30px;
 }
-.left-sidebar-container,
-.right-sidebar-container {
+.left-sidebar-container {
   display: flex;
   align-items: center;
 }
+
 .circle-icon {
   font-size: 1rem;
   margin-right: 0.2rem;
+}
+.add-project {
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+input,
+textarea,
+select {
+  margin: 2%;
+  width: 80%;
+}
+
+br {
+  border-color: black;
+  border-top: 4em;
+}
+
+div[class^='nav'],
+.add-project,
+.add-todo {
+  cursor: pointer;
+}
+
+div[class^='nav'] {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+div[class^='nav']:hover,
+.sidebar-project:hover,
+.add-project:hover,
+.add-todo:hover {
+  background-color: var(--secondary-color);
+}
+
+input[type='submit'] {
+  background-color: #3d3d3d;
+  color: white;
+}
+
+#todo-form-submit {
+  border-radius: 0.3em;
+  width: 50%;
+  height: 2em;
+  border-top: 1em;
+}
+
+.project-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.2em;
+}
+
+.submit-new-project {
+  width: 3em;
+  height: 2em;
+}
+
+#project-name {
+  width: 90%;
+  height: 4em;
+  margin: 0.7em 0 0 0;
 }
