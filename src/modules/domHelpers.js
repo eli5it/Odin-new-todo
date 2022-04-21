@@ -2,6 +2,8 @@ import domCollection from './domCollection';
 import factoryService from './factories';
 import todoService from './todo';
 import projectService from './projects';
+import { isToday, differenceInCalendarWeeks, parseISO } from 'date-fns';
+
 // Changes visibility of project modal and overlay
 const toggleModals = (modal) => {
   const modalOverlay = domCollection.modalOverlay;
@@ -54,8 +56,6 @@ const setDefaultProject = (project) => {
 
 const initializeLocalStorage = () => {
   setDefaultProject('Main');
-  setDefaultProject('Today');
-  setDefaultProject('Week');
 };
 
 const initializeDomProjects = () => {
@@ -68,9 +68,53 @@ const initializeDomProjects = () => {
   });
 };
 
+const moveTodo = (todo, projectName) => {
+  const project = JSON.parse(localStorage.getItem(projectName));
+  project.todos.push(todo);
+  localStorage.setItem(projectName, JSON.stringify(project));
+};
+const checkToday = (todo) => {
+  const dueDate = parseISO(todo.dueDate);
+  if (isToday(dueDate)) {
+    moveTodo(todo, 'Today');
+  }
+};
+const checkThisWeek = (todo) => {
+  const todoDate = parseISO(todo.dueDate);
+  let today = new Date();
+  today = today.toISOString();
+  today = parseISO(today);
+  const difference = differenceInCalendarWeeks(parseISO(todo.dueDate), today);
+  if (difference < 8) {
+    moveTodo(todo, 'Week');
+  }
+};
+
+const clearDatedTodos = () => {
+  localStorage.removeItem('Today');
+  localStorage.removeItem('Week');
+  setDefaultProject('Today');
+  setDefaultProject('Week');
+};
+
+const filterTodosByDate = () => {
+  clearDatedTodos();
+  const keys = Object.keys(localStorage).filter(
+    (key) => key !== 'Today' && key !== 'Week'
+  );
+  keys.forEach((key) => {
+    const todoArray = JSON.parse(localStorage.getItem(key)).todos;
+    todoArray.forEach((todo) => {
+      checkToday(todo);
+      checkThisWeek(todo);
+    });
+  });
+};
+
 export default {
   setListeners,
   initializeLocalStorage,
   initializeDomProjects,
   toggleModals,
+  filterTodosByDate,
 };

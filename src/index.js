@@ -10,4 +10,5 @@ window.onload = () => {
   todoService.renderMainTodos();
   domHelpers.initializeDomProjects();
   projectService.initializeDefaultListeners();
+  domHelpers.filterTodosByDate();
 };

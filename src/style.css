@@ -308,7 +308,7 @@ main {
   padding-left: 1rem;
 }
 
-input,
+.form-input,
 textarea,
 select {
   margin: 2%;
@@ -366,4 +366,9 @@ input[type='submit'] {
   width: 90%;
   height: 4em;
   margin: 0.7em 0 0 0;
+}
+
+.new-todo-item {
+  display: flex;
+  justify-content: flex-start;
 }
