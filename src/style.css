@@ -372,3 +372,26 @@ input[type='submit'] {
   display: flex;
   justify-content: flex-start;
 }
+
+.material-icons-outlined,
+.material-icons {
+  cursor: pointer;
+}
+
+.todo-item {
+  display: flex;
+  align-content: flex-start;
+  padding: 0.6em;
+  border-bottom: #202020;
+  justify-content: space-between;
+  width: 75%;
+  border-radius: 2px;
+}
+
+.todo-item:hover {
+  background-color: #fafafa;
+}
+
+.todo-icon {
+  margin-left: 0.1em;
+}

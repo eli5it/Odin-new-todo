@@ -2,6 +2,19 @@ import domHelpers from './domHelpers';
 import logic from './logic';
 import domCollection from './domCollection';
 
+const deleteDatedTodo = (todo, todoName) => {
+  const todayProject = JSON.parse(localStorage.getItem('Today'));
+  const weekProject = JSON.parse(localStorage.getItem('Week'));
+  todayProject.todos = todayProject.todos.filter((todo) => {
+    todo.title !== todoName && todo.name !== todoName;
+  });
+  weekProject.todos = weekProject.todos.filter((todo) => {
+    todo.title !== todoName && todo.name !== todoName;
+  });
+  localStorage.setItem('Week', JSON.stringify(weekProject));
+  localStorage.setItem('Today', JSON.stringify(todayProject));
+};
+
 const deleteTodo = (todo) => {
   const [projectName, todoName] = todo.id.split('-');
   const currentProject = JSON.parse(localStorage.getItem(projectName));
@@ -10,26 +23,42 @@ const deleteTodo = (todo) => {
   );
   localStorage.setItem(projectName, JSON.stringify(currentProject));
   todo.remove();
+  deleteDatedTodo(todo, todoName);
+};
+
+const createIconElement = (source, name) => {
+  const icon = document.createElement('span');
+  icon.classList.add('todo-icon');
+  icon.classList.add(source);
+  icon.innerText = name;
+  return icon;
 };
 
 const addDomTodo = (todoName, projectName) => {
   const container = domCollection.currentTodos;
+  const innerRightContainer = document.createElement('div');
   const newTodoItem = document.createElement('div');
-  const checkbox = document.createElement('input');
   const span = document.createElement('span');
-  const deleteButton = document.createElement('button');
-  deleteButton.addEventListener('click', () => {
+  const deleteIcon = createIconElement(
+    'material-icons-outlined',
+    'delete_forever'
+  );
+  const editIcon = createIconElement('material-icons-outlined', 'edit');
+  const flagIcon = createIconElement('material-icons-outlined', 'flag');
+  const moveProjectIcon = createIconElement(
+    'material-icons-outlined',
+    'drive_file_move'
+  );
+  deleteIcon.addEventListener('click', () => {
     deleteTodo(newTodoItem);
   });
-  deleteButton.innerText = 'delete';
-  deleteButton.className = 'delete-todo-button';
-  checkbox.type = 'checkbox';
-  checkbox.id = todoName;
-  checkbox.name = todoName;
+  deleteIcon.classList.add = 'delete-todo-button';
   span.innerText = todoName;
   newTodoItem.className = 'new-todo-item';
   newTodoItem.id = `${projectName}-${todoName}`;
-  newTodoItem.append(checkbox, span, deleteButton);
+  newTodoItem.className = 'todo-item';
+  innerRightContainer.append(editIcon, flagIcon, moveProjectIcon, deleteIcon);
+  newTodoItem.append(span, innerRightContainer);
   container.appendChild(newTodoItem);
 };
 
@@ -40,9 +69,9 @@ const renderNewTodo = (todo) => {
   }
 };
 
-const renderTodos = (todoArray, projectName) => {
+const renderTodos = (todoArray) => {
   todoArray.forEach((todo) => {
-    addDomTodo(todo.title, projectName);
+    addDomTodo(todo.title, todo.project);
   });
 };
 

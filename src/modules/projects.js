@@ -58,15 +58,11 @@ const deleteChildren = (element) => {
 
 const renderProjectView = (projectName) => {
   const todoContainer = domCollection.currentTodos;
-  const switchView = compareProjectName(
-    projectName,
-    domCollection.currentProject.innerHTML
-  );
   if (projectName !== domCollection.currentProject.innerHTML) {
     domCollection.currentProject.innerHTML = projectName;
     deleteChildren(todoContainer);
     const todosToRender = JSON.parse(localStorage.getItem(projectName)).todos;
-    todoService.renderTodos(todosToRender, projectName);
+    todoService.renderTodos(todosToRender);
   }
 };
 

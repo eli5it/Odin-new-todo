@@ -2,7 +2,12 @@ import domCollection from './domCollection';
 import factoryService from './factories';
 import todoService from './todo';
 import projectService from './projects';
-import { isToday, differenceInCalendarWeeks, parseISO } from 'date-fns';
+import {
+  isToday,
+  differenceInCalendarWeeks,
+  parseISO,
+  differenceInCalendarDays,
+} from 'date-fns';
 
 // Changes visibility of project modal and overlay
 const toggleModals = (modal) => {
@@ -73,19 +78,25 @@ const moveTodo = (todo, projectName) => {
   project.todos.push(todo);
   localStorage.setItem(projectName, JSON.stringify(project));
 };
-const checkToday = (todo) => {
+
+const isDueToday = (todo) => {
   const dueDate = parseISO(todo.dueDate);
-  if (isToday(dueDate)) {
+  return isToday(dueDate);
+};
+const checkToday = (todo) => {
+  if (isDueToday(todo)) {
     moveTodo(todo, 'Today');
   }
 };
-const checkThisWeek = (todo) => {
-  const todoDate = parseISO(todo.dueDate);
+const isDueThisWeek = (todo) => {
   let today = new Date();
   today = today.toISOString();
   today = parseISO(today);
-  const difference = differenceInCalendarWeeks(parseISO(todo.dueDate), today);
-  if (difference < 8) {
+  const difference = differenceInCalendarDays(parseISO(todo.dueDate), today);
+  return difference < 8;
+};
+const checkThisWeek = (todo) => {
+  if (isDueThisWeek(todo)) {
     moveTodo(todo, 'Week');
   }
 };
@@ -117,4 +128,6 @@ export default {
   initializeDomProjects,
   toggleModals,
   filterTodosByDate,
+  isDueToday,
+  isDueThisWeek,
 };
