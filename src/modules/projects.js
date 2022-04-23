@@ -44,9 +44,9 @@ const setProjectFormListener = () => {
 };
 const setDeleteListener = (deleteButton, project, projectName) => {
   deleteButton.addEventListener('click', () => {
-    project.remove();
     logic.removeLocalProject(projectName);
     removeModalProject(projectName);
+    project.remove();
   });
 };
 
@@ -110,6 +110,7 @@ const renderSingleProject = (projectName) => {
   setDeleteListener(deleteButton, container, projectName);
   setProjectClickListener(domElement, projectName);
   domElement.innerText = projectName;
+  domElement.className = 'sidebar-project-name';
   leftContainer.append(circleIcon, domElement);
   rightContainer.appendChild(deleteButton);
   setHoverListener(container, deleteButton);

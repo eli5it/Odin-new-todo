@@ -2,23 +2,22 @@ import domCollection from './domCollection';
 import factoryService from './factories';
 import todoService from './todo';
 import projectService from './projects';
-import {
-  isToday,
-  differenceInCalendarWeeks,
-  parseISO,
-  differenceInCalendarDays,
-} from 'date-fns';
+import { isToday, parseISO, differenceInCalendarDays } from 'date-fns';
 
 // Changes visibility of project modal and overlay
-const toggleModals = (modal) => {
+const toggleModals = (modal, domElement) => {
   const modalOverlay = domCollection.modalOverlay;
 
   if (modal === 'project') {
     const projectModal = domCollection.projectModal;
     projectModal.classList.toggle('modal-closed');
+    domCollection.projectForm.reset();
+  } else if (modal === 'todoInfo') {
+    domCollection.todoInfoModal.classList.toggle('modal-closed');
   } else {
     const todoModal = domCollection.todoModal;
     todoModal.classList.toggle('modal-closed');
+    domCollection.todoForm.reset();
   }
   modalOverlay.classList.toggle('modal-closed');
 };

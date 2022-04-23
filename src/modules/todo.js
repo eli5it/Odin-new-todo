@@ -34,6 +34,48 @@ const createIconElement = (source, name) => {
   return icon;
 };
 
+const getTodoInformation = (todoID) => {
+  const [project, todoName] = todoID.split('-');
+  const localProject = JSON.parse(localStorage.getItem(project));
+  const todoInfo = localProject.todos.filter((todo) => todo.title === todoName);
+  return todoInfo[0];
+};
+
+const createTodoPane = (name, content) => {
+  const container = document.createElement('div');
+  const top = document.createElement('div');
+  const bottom = document.createElement('div');
+  const title = document.createElement('span');
+  const bTitle = document.createElement('b');
+  bTitle.innerText = name;
+  bottom.innerText = content;
+  title.appendChild(bTitle);
+  top.appendChild(title);
+  container.append(top, bottom);
+  return container;
+};
+
+const displayTodoInfo = (todoInfo) => {
+  const container = document.createElement('div');
+  const topPane = createTodoPane('Title', todoInfo.title);
+  const descriptionPane = createTodoPane(
+    'Description',
+    todoInfo.descriptionPane
+  );
+  const middlePane = createTodoPane('Due Date', todoInfo.dueDate);
+  const bottomPane = createTodoPane('Priority', todoInfo.priority);
+  container.append(topPane, descriptionPane, middlePane, bottomPane);
+  domCollection.todoInfoModal.appendChild(container);
+  domHelpers.toggleModals('todoInfo');
+};
+
+const setExpandTodoListener = (todo) => {
+  todo.addEventListener('click', () => {
+    const todoInfo = getTodoInformation(todo.id);
+    displayTodoInfo(todoInfo);
+  });
+};
+
 const addDomTodo = (todoName, projectName) => {
   const container = domCollection.currentTodos;
   const innerRightContainer = document.createElement('div');
@@ -60,6 +102,7 @@ const addDomTodo = (todoName, projectName) => {
   innerRightContainer.append(editIcon, flagIcon, moveProjectIcon, deleteIcon);
   newTodoItem.append(span, innerRightContainer);
   container.appendChild(newTodoItem);
+  setExpandTodoListener(newTodoItem);
 };
 
 const renderNewTodo = (todo) => {
@@ -99,8 +142,8 @@ const submitNewTodo = () => {
 
   formButton.addEventListener('click', (event) => {
     event.preventDefault();
-    domHelpers.toggleModals();
     createNewTodo();
+    domHelpers.toggleModals();
   });
 };
 const setTodoEventListener = () => {

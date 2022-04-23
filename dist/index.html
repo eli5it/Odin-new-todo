@@ -7,8 +7,10 @@
     <title>Todo App</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
       rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+
 </head>
 <body>
     <header>
@@ -69,9 +71,9 @@
                 
                 <form class="project-form">
                     <label for="project-name">Name: </label>
-                    <input type="text" id="project-name" name="project-name" style="display: block;" class="form-input">
+                    <input type="text" id="project-name" name="project-name" style="display: block;" class="form-input" required/>
                     <div class="project-button-container">
-                        <input type="submit" value="Submit" class="submit-new-project form-input">
+                        <input type="submit" value="Submit" class="submit-new-project form-input" required/>
                     </div>
                     
                 </form>
@@ -82,15 +84,14 @@
     <div class="todo-modal modal-closed modal">
         <div class="todo-modal-content">
             <h1 style="font-size: 1.5em; font-weight: 700;">New Task</h1>
-            <hr />
             <div class="todo-form=container">
                 <form class="todo-form">
                         <label for="todo-name">Name: </label>
-                        <input type="text" id="todo-name" name="todo-name" class="form-input" required>
+                        <input type="text" id="todo-name" name="todo-name" class="form-input" required/>
                         <label for="description">Description: </label>
                         <textarea id="description" name="description" rows="4" cols="50" maxlength="100" required style="resize: none;"></textarea>
                         <label for="priority">priority</label>
-                        <select name="priority" id="priority">
+                        <select name="priority" id="priority" required>
                             <option value="High">High</option>
                             <option value="Medium">Medium</option>
                             <option value="Easy">Easy</option>
@@ -98,16 +99,39 @@
                         <label for="project">Project</label>
                         <select name="project" id="project"></select>              
                         <label for="todo-date">Due Date: </label>
-                        <input type="date" id="todo-date" name="todo-date" class="form-input" required>
+                        <input type="date" id="todo-date" name="todo-date" class="form-input" required/>
 
                        
-                        <input type="submit" value="Submit" id="todo-form-submit" class="form-input">
+                        <input type="submit" value="Submit" id="todo-form-submit" class="form-input"/>
 
                 </form>
             </div>
             
         </div>
     </div>
+    <div class="todo-info-modal modal" style="background-color: gray;">
+        <p class="todo-name-info"></p>
+        <div class="project-info">
+            <b>Project:</b>
+        </div>
+        <div class="priority-info">
+            <span>
+                <b>Priority</b>
+            </span>
+            <span class="priority-span"></span>
+        </div>
+        <div class="due-date-info">
+            <span>
+                <b>Due Date:</b>
+            </span>
+        </div>
+        <div class="details-info">
+            <b>Details</b>
+            <span>
+                
+            </span>
+        </div>
+    </div> 
     <div class="modal-overlay modal-closed modal" id="modal-overlay"></div>
     <script src="bundle.js"></script>
 </body>

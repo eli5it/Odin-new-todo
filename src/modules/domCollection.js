@@ -9,6 +9,8 @@ const domCollection = {
     priority: document.getElementById('priority'),
     projectName: document.getElementById('project'),
   },
+  todoForm: document.querySelector('.todo-form'),
+  projectForm: document.querySelector('.project-form'),
   todoFormButton: document.getElementById('todo-form-submit'),
   projectButton: document.querySelector('.add-project'),
   projectForm: document.querySelector('.project-form'),
@@ -23,6 +25,14 @@ const domCollection = {
     main: document.querySelector('.nav-main'),
     today: document.querySelector('.nav-today'),
     week: document.querySelector('.nav-week'),
+  },
+  todoInfoModal: document.querySelector('.todo-info-modal'),
+  todoInfo: {
+    project: document.querySelector('.project-info'),
+    title: document.querySelector('.todo-name-info'),
+    dueDate: document.querySelector('.due-date-info'),
+    details: document.querySelector('.details-info'),
+    priority: document.querySelector('.priority-info'),
   },
 };
 
