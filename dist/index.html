@@ -109,27 +109,34 @@
             
         </div>
     </div>
-    <div class="todo-info-modal modal" style="background-color: gray;">
-        <p class="todo-name-info"></p>
+    <div class="todo-info-modal modal modal-closed">
+        <div class="info-modal-guts">
+            <p class="todo-name-info"></p>
         <div class="project-info">
-            <b>Project:</b>
+            <span>
+                <b class="info-label">Project:</b>
+            </span>
+            <span class="project-span"></span>
         </div>
         <div class="priority-info">
             <span>
-                <b>Priority</b>
+                <b class="info-label">Priority:</b>
             </span>
             <span class="priority-span"></span>
         </div>
         <div class="due-date-info">
             <span>
-                <b>Due Date:</b>
+                <b class="info-label">Due Date:</b>
+            </span>
+            <span class="date-span">
+
             </span>
         </div>
         <div class="details-info">
-            <b>Details</b>
-            <span>
-                
-            </span>
+            <b class="info-label">Details:</b>
+            <div class="details-div">     
+            </div>
+        </div>
         </div>
     </div> 
     <div class="modal-overlay modal-closed modal" id="modal-overlay"></div>

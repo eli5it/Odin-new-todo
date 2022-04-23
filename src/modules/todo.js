@@ -41,36 +41,19 @@ const getTodoInformation = (todoID) => {
   return todoInfo[0];
 };
 
-const createTodoPane = (name, content) => {
-  const container = document.createElement('div');
-  const top = document.createElement('div');
-  const bottom = document.createElement('div');
-  const title = document.createElement('span');
-  const bTitle = document.createElement('b');
-  bTitle.innerText = name;
-  bottom.innerText = content;
-  title.appendChild(bTitle);
-  top.appendChild(title);
-  container.append(top, bottom);
-  return container;
-};
-
 const displayTodoInfo = (todoInfo) => {
-  const container = document.createElement('div');
-  const topPane = createTodoPane('Title', todoInfo.title);
-  const descriptionPane = createTodoPane(
-    'Description',
-    todoInfo.descriptionPane
-  );
-  const middlePane = createTodoPane('Due Date', todoInfo.dueDate);
-  const bottomPane = createTodoPane('Priority', todoInfo.priority);
-  container.append(topPane, descriptionPane, middlePane, bottomPane);
-  domCollection.todoInfoModal.appendChild(container);
   domHelpers.toggleModals('todoInfo');
+  console.log(domCollection.todoInfo);
+  const infoModal = domCollection.todoInfo;
+  infoModal.details.innerText = todoInfo.description;
+  infoModal.dueDate.innerText = todoInfo.dueDate;
+  infoModal.title.innerText = todoInfo.title;
+  infoModal.project.innerText = todoInfo.project;
+  infoModal.priority.innerText = todoInfo.priority;
 };
 
-const setExpandTodoListener = (todo) => {
-  todo.addEventListener('click', () => {
+const setExpandTodoListener = (todo, div) => {
+  div.addEventListener('click', () => {
     const todoInfo = getTodoInformation(todo.id);
     displayTodoInfo(todoInfo);
   });
@@ -80,7 +63,7 @@ const addDomTodo = (todoName, projectName) => {
   const container = domCollection.currentTodos;
   const innerRightContainer = document.createElement('div');
   const newTodoItem = document.createElement('div');
-  const span = document.createElement('span');
+  const div = document.createElement('div');
   const deleteIcon = createIconElement(
     'material-icons-outlined',
     'delete_forever'
@@ -95,14 +78,14 @@ const addDomTodo = (todoName, projectName) => {
     deleteTodo(newTodoItem);
   });
   deleteIcon.classList.add = 'delete-todo-button';
-  span.innerText = todoName;
+  div.innerText = todoName;
   newTodoItem.className = 'new-todo-item';
   newTodoItem.id = `${projectName}-${todoName}`;
   newTodoItem.className = 'todo-item';
   innerRightContainer.append(editIcon, flagIcon, moveProjectIcon, deleteIcon);
-  newTodoItem.append(span, innerRightContainer);
+  newTodoItem.append(div, innerRightContainer);
   container.appendChild(newTodoItem);
-  setExpandTodoListener(newTodoItem);
+  setExpandTodoListener(newTodoItem, div);
 };
 
 const renderNewTodo = (todo) => {

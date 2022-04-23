@@ -5,7 +5,7 @@ import projectService from './projects';
 import { isToday, parseISO, differenceInCalendarDays } from 'date-fns';
 
 // Changes visibility of project modal and overlay
-const toggleModals = (modal, domElement) => {
+const toggleModals = (modal) => {
   const modalOverlay = domCollection.modalOverlay;
 
   if (modal === 'project') {

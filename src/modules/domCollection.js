@@ -28,11 +28,11 @@ const domCollection = {
   },
   todoInfoModal: document.querySelector('.todo-info-modal'),
   todoInfo: {
-    project: document.querySelector('.project-info'),
+    project: document.querySelector('.project-span'),
     title: document.querySelector('.todo-name-info'),
-    dueDate: document.querySelector('.due-date-info'),
-    details: document.querySelector('.details-info'),
-    priority: document.querySelector('.priority-info'),
+    dueDate: document.querySelector('.date-span'),
+    details: document.querySelector('.details-div'),
+    priority: document.querySelector('.priority-span'),
   },
 };
 
